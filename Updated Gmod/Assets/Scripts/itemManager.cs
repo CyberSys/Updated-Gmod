@@ -5,7 +5,7 @@ using UnityEngine;
 public class itemManager : MonoBehaviour
 {
 	public Transform[] hotbar;
-	private int index = 1;
+	private int index = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +22,17 @@ public class itemManager : MonoBehaviour
 		if (scrollAxis < 0f)
 			index--;
 		
-		if(index > hotbar.Length)
-			index = 1;
+		if(index > hotbar.Length - 1)
+			index = 0;
 		
-		if(index < 1)
-			index = hotbar.Length;
+		if(index < 0)
+			index = hotbar.Length - 1;
+		
+		for(int i = 0; i < hotbar.Length; i++){
+			if(i == index)
+				hotbar[i].gameObject.SetActive(true);
+			if(i != index)
+				hotbar[i].gameObject.SetActive(false);
+		}
     }
 }
