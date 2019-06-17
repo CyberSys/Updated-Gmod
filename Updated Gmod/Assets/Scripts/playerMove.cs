@@ -7,6 +7,7 @@ public class playerMove : MonoBehaviour
     [SerializeField] private string horizontalInputName;
     [SerializeField] private string verticalInputName;
     [SerializeField] private float movementSpeed;
+	private float setSpeed;
 
     private CharacterController charController;
 
@@ -18,6 +19,7 @@ public class playerMove : MonoBehaviour
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
+		setSpeed = movementSpeed;
     }
 
     private void Update()
@@ -28,8 +30,8 @@ public class playerMove : MonoBehaviour
     //Calls functions and basic character movements.
     private void PlayerMovement()
     {
-        float horizInput = Input.GetAxis(horizontalInputName) * movementSpeed * Time.deltaTime;
-        float vertInput = Input.GetAxis(verticalInputName) * movementSpeed * Time.deltaTime;
+        float horizInput = Input.GetAxis(horizontalInputName) * movementSpeed;
+        float vertInput = Input.GetAxis(verticalInputName) * movementSpeed;
 
         Vector3 forwardMovement = transform.forward * vertInput;
         Vector3 rightMovement = transform.right * horizInput;
@@ -73,18 +75,18 @@ public class playerMove : MonoBehaviour
     //This checks if Player is walking and is not in the air and applies more speed.
     private void Running()
     {
-        if (movementSpeed == 200f && !isJumping == true)
+        if (movementSpeed == setSpeed && !isJumping == true)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                movementSpeed = 600f;
+                movementSpeed = setSpeed * 2;
             }
         }
         else
         {
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                movementSpeed = 200f;
+                movementSpeed = setSpeed;
             }
         }
     }
@@ -92,18 +94,20 @@ public class playerMove : MonoBehaviour
     //This checks if Player speed is >= 200 and is not jumping then slows the Player accordingly.
     private void Crouching()
     {
-        if (movementSpeed >= 200f && !isJumping == true)
+        if (movementSpeed >= setSpeed && !isJumping == true)
         {
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                movementSpeed = 50f;
+				charController.height = 1f;
+                movementSpeed = setSpeed/4;
             }
         }
         else
         {
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
-                movementSpeed = 200f;
+				charController.height = 2f;
+                movementSpeed = setSpeed;
             }
         }
     }

@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 643724968}
   - component: {fileID: 643724967}
   - component: {fileID: 643724966}
+  - component: {fileID: 643724969}
   m_Layer: 0
   m_Name: playerCamera
   m_TagString: Untagged
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseXInputName: Mouse X
   mouseYInputName: Mouse Y
-  mouseSensitivity: 50
+  mouseSensitivity: 100
   playerBody: {fileID: 1059109753}
 --- !u!114 &643724966
 MonoBehaviour:
@@ -325,6 +326,20 @@ MonoBehaviour:
   waveform: 0
   vectorscope: 0
   debugOverlay: 0
+--- !u!114 &643724969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643724961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9533b16ee92f4d24ba4229c728caf2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hotbar:
+  - {fileID: 101890496}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,9 +511,7 @@ GameObject:
   - component: {fileID: 1059109753}
   - component: {fileID: 1059109752}
   - component: {fileID: 1059109754}
-  - component: {fileID: 1059109755}
   - component: {fileID: 1059109756}
-  - component: {fileID: 1059109757}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -553,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInputName: Horizontal
   verticalInputName: Vertical
-  movementSpeed: 200
+  movementSpeed: 5
   jumpFallOff:
     serializedVersion: 2
     m_Curve:
@@ -581,19 +594,6 @@ MonoBehaviour:
   jumpMultiplier: 5
   jumpKey: 32
   isJumping: 0
---- !u!114 &1059109755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059109751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f881c4eba9cf42e48afe8fa1c638c8b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 1059109752}
 --- !u!54 &1059109756
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -610,18 +610,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1059109757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059109751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86b549fc70ee3bd49a2a1a53aaba9e44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1144642587
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +647,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144642587}
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_TerrainData: {fileID: 15600000, guid: fc6145faccd5cf74b885c640e063cbef, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
@@ -675,12 +663,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
-  m_LegacySpecular:
-    serializedVersion: 2
-    rgba: 4286545791
-  m_LegacyShininess: 0.078125
-  m_MaterialTemplate: {fileID: 0}
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -788,11 +771,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: weaponLP
       objectReference: {fileID: 0}
-    - target: {fileID: -8851716983490464325, guid: 92ccaaaca3d0a9b44b3fa85a1a7e606e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ae00fbaed6ffc484ba860743434d15d2, type: 2}
     - target: {fileID: -4216859302048453862, guid: 92ccaaaca3d0a9b44b3fa85a1a7e606e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -848,5 +826,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8851716983490464325, guid: 92ccaaaca3d0a9b44b3fa85a1a7e606e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae00fbaed6ffc484ba860743434d15d2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92ccaaaca3d0a9b44b3fa85a1a7e606e, type: 3}
